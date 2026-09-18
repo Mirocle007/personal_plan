@@ -1,0 +1,13 @@
+node_modules
+frontend/dist
+frontend/node_modules
+backend/dist
+backend/node_modules
+backend/database.sqlite
+backend/database.sqlite-*
+backend/backups
+.git
+.trae
+.v2c
+.video_agent
+docs

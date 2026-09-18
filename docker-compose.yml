@@ -1,0 +1,12 @@
+services:
+  planner:
+    build: .
+    container_name: personal-planner
+    ports:
+      - "3001:3001"
+    volumes:
+      - planner-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  planner-data:

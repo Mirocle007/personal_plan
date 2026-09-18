@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+/* class 策略深色模式（html.dark） */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --app-bg: #f4f5fa;
+  --surface: #ffffff;
+  --surface-2: #f8f9fc;
+  --surface-3: #eef0f6;
+  --border-soft: #e5e8f0;
+  --text-1: #1a1d29;
+  --text-2: #5b6172;
+  --text-3: #9298a8;
+  --accent: #6366f1;
+  --accent-soft: #eef0fe;
+}
+
+.dark {
+  --app-bg: #10121a;
+  --surface: #181b26;
+  --surface-2: #1f2331;
+  --surface-3: #262b3c;
+  --border-soft: #2b3040;
+  --text-1: #eceef4;
+  --text-2: #a6adc0;
+  --text-3: #6b7288;
+  --accent: #818cf8;
+  --accent-soft: #232748;
+}
+
+@theme inline {
+  --color-app: var(--app-bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--border-soft);
+  --color-t1: var(--text-1);
+  --color-t2: var(--text-2);
+  --color-t3: var(--text-3);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+
+  --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+
+  --animate-fade-in: fade-in 0.25s ease-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
+  --animate-slide-left: slide-left 0.25s ease-out;
+  --animate-scale-in: scale-in 0.18s ease-out;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slide-left {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-app text-t1 font-sans antialiased;
+  transition: background-color 0.2s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* 细滚动条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-soft) transparent;
+}
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-thumb { background: var(--border-soft); border-radius: 3px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* 通用组件基类 */
+@layer components {
+  .input-base {
+    @apply w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-t1
+      placeholder:text-t3 outline-none transition
+      focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-50;
+  }
+  .card {
+    @apply rounded-xl border border-line bg-surface shadow-sm;
+  }
+
+  /* 按钮家族：共享基类用纯 CSS，避免 v4 中 @apply 自定义类 */
+  .btn, .btn-primary, .btn-ghost, .btn-outline, .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.25;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+  }
+  .btn:disabled, .btn-primary:disabled, .btn-ghost:disabled,
+  .btn-outline:disabled, .btn-danger:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .btn:active, .btn-primary:active, .btn-ghost:active,
+  .btn-outline:active, .btn-danger:active {
+    transform: scale(0.98);
+  }
+  .btn {
+    background: transparent;
+    color: var(--text-2);
+  }
+  .btn:hover {
+    background: var(--surface-3);
+    color: var(--text-1);
+  }
+  .btn-primary {
+    color: #fff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+    background: linear-gradient(135deg, #6366f1, #7c3aed);
+  }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-2);
+  }
+  .btn-ghost:hover {
+    background: var(--surface-3);
+    color: var(--text-1);
+  }
+  .btn-outline {
+    border: 1px solid var(--border-soft);
+    background: var(--surface);
+    color: var(--text-1);
+  }
+  .btn-outline:hover { background: var(--surface-2); }
+  .btn-danger {
+    background: #f43f5e;
+    color: #fff;
+  }
+  .btn-danger:hover { background: #e11d48; }
+}
