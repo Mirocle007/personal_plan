@@ -4,6 +4,26 @@
 
 > v2.0 是对 v1「个人工作事项管理工具」的全面重构，功能设计参考了 Todoist、滴答清单、Things 3 等主流效率工具（调研与设计决策见 `docs/`）。
 
+## 📸 界面一览
+
+**仪表盘 · 深色模式**（支持浅色 / 深色 / 跟随系统三态主题）
+
+![仪表盘深色模式](docs/screenshots/dashboard-dark.png)
+
+| 任务 · 快速添加与多视图 | 看板 · 拖拽改状态 |
+|---|---|
+| [![任务列表](docs/screenshots/tasks-list.png)](docs/screenshots/tasks-list.png) | [![看板](docs/screenshots/board.png)](docs/screenshots/board.png) |
+| **日历视图** | **四象限视图** |
+| [![日历](docs/screenshots/calendar.png)](docs/screenshots/calendar.png) | [![四象限](docs/screenshots/quadrant.png)](docs/screenshots/quadrant.png) |
+| **任务详情 · 侧滑面板** | **统计报告 · 图表与导出** |
+| [![任务详情](docs/screenshots/task-detail.png)](docs/screenshots/task-detail.png) | [![统计报告](docs/screenshots/summary.png)](docs/screenshots/summary.png) |
+| **习惯打卡 · 连续天数** | **番茄专注** |
+| [![习惯打卡](docs/screenshots/habits.png)](docs/screenshots/habits.png) | [![番茄专注](docs/screenshots/focus.png)](docs/screenshots/focus.png) |
+
+*浅色主题仪表盘*
+
+![仪表盘浅色模式](docs/screenshots/dashboard.png)
+
 ## ✨ 功能总览
 
 | 模块 | 亮点 |
