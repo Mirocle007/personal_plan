@@ -8,7 +8,9 @@ COPY frontend/ frontend/
 RUN npm --prefix frontend run build
 
 COPY backend/package*.json backend/
-RUN npm --prefix backend install
+# sqlite3 等原生模块在 ARM(如树莓派)上需现场编译，补齐构建工具链
+RUN apk add --no-cache python3 make g++ \
+  && npm --prefix backend install
 COPY backend/ backend/
 RUN npm --prefix backend run build
 

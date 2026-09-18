@@ -74,6 +74,20 @@ docker compose up -d
 # 打开 http://localhost:3001，数据持久化在命名卷 planner-data
 ```
 
+### 方式五：树莓派 / ARM 设备 7×24 常驻（推荐）
+
+树莓派功耗仅 3~6W，非常适合跑这种个人本地服务。项目自带 `Dockerfile` 已支持 ARM 构建（构建阶段自动安装 sqlite3 编译工具链）：
+
+```bash
+# 树莓派上（64 位 Raspberry Pi OS）
+sudo apt update && sudo apt install -y docker.io docker-compose-plugin
+git clone https://github.com/Mirocle007/personal_plan.git
+cd personal_plan
+sudo docker compose up -d      # 首次构建约 5-10 分钟（ARM 上需编译原生模块）
+```
+
+搭配 [Tailscale](https://tailscale.com)（树莓派和手机各装一个、登同一账号），出门在外也能访问家里树莓派上的规划中心。
+
 ## 🧪 测试
 
 ```bash
