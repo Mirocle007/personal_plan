@@ -74,7 +74,7 @@ export default function Settings() {
           <Info size={16} className="text-accent" /> 关于
         </h2>
         <div className="space-y-1 text-sm text-t2">
-          <p>个人规划中心 v2.0 — 集任务、看板、日历、四象限、习惯、番茄钟于一体的本地规划工具。</p>
+          <p>个人规划中心 <span className="font-semibold text-accent">v2.0.1</span> — 集任务、看板、日历、四象限、习惯、番茄钟于一体的本地规划工具。</p>
           <p className="text-xs text-t3">
             技术栈：React 19 + Tailwind CSS 4 + Express 5 + SQLite。数据完全存储在本地。
           </p>

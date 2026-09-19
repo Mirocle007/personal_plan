@@ -26,7 +26,12 @@ app.use('/api', (_req, res) => {
 if (process.env.NODE_ENV === 'production') {
   const distDir = path.resolve(__dirname, '../..', 'frontend/dist');
   if (fs.existsSync(distDir)) {
-    app.use(express.static(distDir));
+    app.use(express.static(distDir, {
+      setHeaders(res, filePath) {
+        // HTML 入口不缓存，保证前端发版后手机浏览器立刻拿到新版本
+        if (filePath.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
+      }
+    }));
     app.use((req, res, next) => {
       if (req.method === 'GET' && !req.path.startsWith('/api')) {
         res.sendFile(path.join(distDir, 'index.html'));
