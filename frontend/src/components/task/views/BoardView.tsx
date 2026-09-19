@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { GripVertical } from 'lucide-react';
 import {
   DndContext, PointerSensor, useDraggable, useDroppable, useSensor, useSensors,
   type DragEndEvent
@@ -28,8 +29,25 @@ function DraggableCard({
 }) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id: task.id });
   return (
-    <div ref={setNodeRef} {...listeners} {...attributes} className={isDragging ? 'opacity-40' : ''}>
-      <TaskRow task={task} projects={projects} onOpen={onOpen} onToggle={onToggle} />
+    <div ref={setNodeRef} className={isDragging ? 'opacity-40' : ''}>
+      <TaskRow
+        task={task}
+        projects={projects}
+        onOpen={onOpen}
+        onToggle={onToggle}
+        dragHandle={
+          <button
+            aria-label="拖拽移动任务"
+            {...listeners}
+            {...attributes}
+            style={{ touchAction: 'none' }}
+            className="shrink-0 cursor-grab touch-none rounded-md p-1.5 text-t3 transition hover:bg-surface-3 hover:text-accent active:cursor-grabbing"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <GripVertical size={16} />
+          </button>
+        }
+      />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Check } from 'lucide-react';
+import type { ReactNode } from 'react';
 import type { ProjectDTO, TaskDTO } from '../../types';
 import { formatDue, isOverdue } from '../../constants';
 import { TagChip } from '../ui/Badges';
@@ -8,9 +9,11 @@ interface TaskRowProps {
   projects: ProjectDTO[];
   onOpen: (id: number) => void;
   onToggle: (task: TaskDTO) => void;
+  /** 看板视图的拖拽把手（触屏友好：只有把手接管拖拽，卡片本身仍可正常滚动页面） */
+  dragHandle?: ReactNode;
 }
 
-export default function TaskRow({ task, projects, onOpen, onToggle }: TaskRowProps) {
+export default function TaskRow({ task, projects, onOpen, onToggle, dragHandle }: TaskRowProps) {
   const done = task.status === '已完成' || task.status === '已取消';
   const overdue = isOverdue(task);
   const project = projects.find((p) => p.id === task.projectId);
@@ -67,6 +70,7 @@ export default function TaskRow({ task, projects, onOpen, onToggle }: TaskRowPro
       >
         {task.status}
       </span>
+      {dragHandle}
     </div>
   );
 }

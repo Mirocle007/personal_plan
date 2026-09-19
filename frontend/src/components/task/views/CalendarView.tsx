@@ -62,71 +62,75 @@ export default function CalendarView({ tasks, projects, onOpen }: CalendarViewPr
         </div>
       </div>
 
-      <div className="grid grid-cols-7 border-b border-line bg-surface-2">
-        {WEEK_LABELS.map((w) => (
-          <div key={w} className="py-2 text-center text-xs font-medium text-t3">
-            周{w}
+      <div className="overflow-x-auto">
+        <div className="min-w-[640px]">
+          <div className="grid grid-cols-7 border-b border-line bg-surface-2">
+            {WEEK_LABELS.map((w) => (
+              <div key={w} className="py-2 text-center text-xs font-medium text-t3">
+                周{w}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className="grid grid-cols-7">
-        {days.map((day) => {
-          const key = format(day, 'yyyy-MM-dd');
-          const dayTasks = (byDay.get(key) ?? []).filter((t) => t.status !== '已取消');
-          const inMonth = isSameMonth(day, month);
-          return (
-            <div
-              key={key}
-              className={`min-h-24 border-b border-r border-line p-1.5 [&:nth-child(7n)]:border-r-0 ${
-                inMonth ? 'bg-surface' : 'bg-surface-2/50'
-              }`}
-            >
-              <div className="flex items-center justify-between px-0.5">
-                <span
-                  className={`text-xs ${
-                    isToday(day)
-                      ? 'flex h-5 w-5 items-center justify-center rounded-full bg-accent font-semibold text-white'
-                      : inMonth
-                        ? 'text-t2'
-                        : 'text-t3/50'
+          <div className="grid grid-cols-7">
+            {days.map((day) => {
+              const key = format(day, 'yyyy-MM-dd');
+              const dayTasks = (byDay.get(key) ?? []).filter((t) => t.status !== '已取消');
+              const inMonth = isSameMonth(day, month);
+              return (
+                <div
+                  key={key}
+                  className={`min-h-24 border-b border-r border-line p-1.5 [&:nth-child(7n)]:border-r-0 ${
+                    inMonth ? 'bg-surface' : 'bg-surface-2/50'
                   }`}
                 >
-                  {day.getDate()}
-                </span>
-              </div>
-              <div className="mt-1 space-y-1">
-                {dayTasks.slice(0, 3).map((t) => {
-                  const project = projects.find((p) => p.id === t.projectId);
-                  const done = t.status === '已完成';
-                  return (
-                    <button
-                      key={t.id}
-                      onClick={() => onOpen(t.id)}
-                      title={t.title}
-                      className={`block w-full truncate rounded px-1.5 py-0.5 text-left text-[11px] transition hover:brightness-95 ${
-                        done ? 'bg-surface-3 text-t3 line-through' : 'bg-accent-soft text-accent'
-                      } ${!isDone(t) && dueKey(t.dueDate)! < todayKey() ? 'bg-rose-500/10 text-rose-500' : ''}`}
+                  <div className="flex items-center justify-between px-0.5">
+                    <span
+                      className={`text-xs ${
+                        isToday(day)
+                          ? 'flex h-5 w-5 items-center justify-center rounded-full bg-accent font-semibold text-white'
+                          : inMonth
+                            ? 'text-t2'
+                            : 'text-t3/50'
+                      }`}
                     >
-                      {project && (
-                        <span
-                          className="mr-1 inline-block h-1.5 w-1.5 rounded-full align-middle"
-                          style={{ background: project.color ?? '#6366f1' }}
-                        />
-                      )}
-                      {t.title}
-                    </button>
-                  );
-                })}
-                {dayTasks.length > 3 && (
-                  <button onClick={() => dayTasks[3] && onOpen(dayTasks[3].id)} className="px-1.5 text-[11px] text-t3 hover:text-accent">
-                    +{dayTasks.length - 3} 更多
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })}
+                      {day.getDate()}
+                    </span>
+                  </div>
+                  <div className="mt-1 space-y-1">
+                    {dayTasks.slice(0, 3).map((t) => {
+                      const project = projects.find((p) => p.id === t.projectId);
+                      const done = t.status === '已完成';
+                      return (
+                        <button
+                          key={t.id}
+                          onClick={() => onOpen(t.id)}
+                          title={t.title}
+                          className={`block w-full truncate rounded px-1.5 py-0.5 text-left text-[11px] transition hover:brightness-95 ${
+                            done ? 'bg-surface-3 text-t3 line-through' : 'bg-accent-soft text-accent'
+                          } ${!isDone(t) && dueKey(t.dueDate)! < todayKey() ? 'bg-rose-500/10 text-rose-500' : ''}`}
+                        >
+                          {project && (
+                            <span
+                              className="mr-1 inline-block h-1.5 w-1.5 rounded-full align-middle"
+                              style={{ background: project.color ?? '#6366f1' }}
+                            />
+                          )}
+                          {t.title}
+                        </button>
+                      );
+                    })}
+                    {dayTasks.length > 3 && (
+                      <button onClick={() => dayTasks[3] && onOpen(dayTasks[3].id)} className="px-1.5 text-[11px] text-t3 hover:text-accent">
+                        +{dayTasks.length - 3} 更多
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
